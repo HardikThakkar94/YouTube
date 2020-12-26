@@ -33,7 +33,6 @@ class ButtonPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20)
               ),
-              splashColor: Colors.white,
               elevation: 10,
 
             ),
