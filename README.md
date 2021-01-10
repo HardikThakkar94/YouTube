@@ -1,3 +1,3 @@
-# Tabbed Navigation in Flutter
+# Tabbed From Page in Flutter
 
-### This is a simple project that demonstrates a simple tabbed navigation in flutter.
+### This is a simple project that demonstrates a simple Tabbed Form Page in flutter.
