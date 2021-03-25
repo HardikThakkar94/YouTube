@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
+import 'package:google_sign_in/google_sign_in.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,32 +58,24 @@ class FirebaseAuthDemo extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
-              Row(
-                children: [
-                  Expanded(
-                      child: ElevatedButton(
-                          onPressed: () async {
-                            await _firebaseAuth.createUserWithEmailAndPassword(
-                                email: _emailController.text,
-                                password: _passwordController.text);
-                          },
-                          child: Text('Register'))),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                      child: ElevatedButton(
-                          onPressed: () async {
-                            await _firebaseAuth
-                                .signInWithEmailAndPassword(
-                                    email: _emailController.text,
-                                    password: _passwordController.text)
-                                .then((value) => print('Login Successful'));
-                          },
-                          child: Text('Login')))
-                ],
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 45,
+                child: ElevatedButton(
+                    onPressed: () async {
+                          final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+                          final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+                          final GoogleAuthCredential credential = GoogleAuthProvider.credential(accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+
+                          await FirebaseAuth.instance.signInWithCredential(credential).then((value) => print('registered'));
+                    },
+                    child: Text('Google Signin', style: TextStyle(fontSize: 20),)),
+              ),
+              SizedBox(
+                width: 10,
               )
             ],
           ),

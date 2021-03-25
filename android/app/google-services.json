@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "876761930757",
+    "project_id": "demoauth-5d3d5",
+    "storage_bucket": "demoauth-5d3d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876761930757:android:3733243c91c71c8ab7506c",
+        "android_client_info": {
+          "package_name": "pythonhub.py.youtube"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876761930757-nijog3a2c997au2naf805a1ttq7r9r1d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pythonhub.py.youtube",
+            "certificate_hash": "6937706f1bde3e61199b84c0bdf5ad7b014913a6"
+          }
+        },
+        {
+          "client_id": "876761930757-o15159amu78fs9c1jilncf8u28ohlvh7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8_PMdwW8qAu0PGU3WoB41JXue0jclk9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876761930757-o15159amu78fs9c1jilncf8u28ohlvh7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
