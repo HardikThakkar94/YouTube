@@ -1,3 +1,3 @@
-# Tabbed From Page in Flutter
+# Firebase Authentication Demo
 
-### This is a simple project that demonstrates a simple Tabbed Form Page in flutter.
+### This is a simple project that demonstrates how to register and signin user with Firebase Authentication.
