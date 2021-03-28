@@ -67,7 +67,12 @@ class FirebaseAuthDemo extends StatelessWidget {
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if(snapshot.hasData){
                     return ListView(
-                      children: snapshot.data.docs.map((e) => ListTile(title: Text(e['name']),)).toList(),
+                      children: snapshot.data.docs.map((e) => Column(
+                        children: [
+                          ListTile(title: Text(e['name']),),
+                          Divider(color: Colors.black.withOpacity(0.6), thickness: 2,)
+                        ],
+                      )).toList(),
                     );
                   }
                   return Center(child: CircularProgressIndicator(),);
