@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,65 +19,62 @@ class MyApp extends StatelessWidget {
 }
 
 class FirebaseAuthDemo extends StatelessWidget {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
+  final CollectionReference collectionReference = FirebaseFirestore.instance.collection('contacts');
 
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        alignment: Alignment.center,
-        child: Form(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                controller: _emailController,
-                style: TextStyle(fontSize: 22, color: Colors.black),
-                decoration: InputDecoration(
-                  hintText: "Email Address",
-                  hintStyle: TextStyle(fontSize: 22, color: Colors.black),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.7,
+                  child: TextFormField(
+                    controller: _textEditingController,
+                    style: TextStyle(fontSize: 22, color: Colors.black),
+                    decoration: InputDecoration(
+                      hintText: "Name",
+                      hintStyle: TextStyle(fontSize: 22, color: Colors.black),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                style: TextStyle(fontSize: 22, color: Colors.black),
-                decoration: InputDecoration(
-                  hintText: "Password",
-                  hintStyle: TextStyle(fontSize: 22, color: Colors.black),
+                SizedBox(
+                  width: 10,
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 45,
-                child: ElevatedButton(
-                    onPressed: () async {
-                          final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-                          final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+                SizedBox(
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        await collectionReference.add({'name': _textEditingController.text}).then((value) => _textEditingController.clear());
+                      },
+                      child: Text(
+                        'Add Data',
+                        style: TextStyle(fontSize: 20),
+                      )),
+                ),
+              ],
+            ),
+            Expanded(
+                child: StreamBuilder(stream: collectionReference.snapshots(),
+                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if(snapshot.hasData){
+                    return ListView(
+                      children: snapshot.data.docs.map((e) => ListTile(title: Text(e['name']),)).toList(),
+                    );
+                  }
+                  return Center(child: CircularProgressIndicator(),);
+                  },
 
-                          final GoogleAuthCredential credential = GoogleAuthProvider.credential(accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-
-                          await FirebaseAuth.instance.signInWithCredential(credential).then((value) => print('registered'));
-                    },
-                    child: Text('Google Signin', style: TextStyle(fontSize: 20),)),
-              ),
-              SizedBox(
-                width: 10,
-              )
-            ],
-          ),
+            ))
+          ],
         ),
       ),
     );
