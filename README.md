@@ -1,3 +1,3 @@
-# Tabbed From Page in Flutter
+# Google Authentication or Signin in Flutter
 
-### This is a simple project that demonstrates a simple Tabbed Form Page in flutter.
+### This is a simple project that demonstrates how to register user with Google Authentication in Flutter.
